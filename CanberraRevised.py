@@ -24,7 +24,7 @@ def Doc():#Function to display the help menu as needed
     
 def GetArgs():#Collects the arguments for the program
     try:
-        ops, args = getopt.getopt(sys.argv[1:],shortops="vhf:s:o:S:", longops=["verbose","help","inFile","inSep","outFile","outSep"])
+        ops, args = getopt.getopt(sys.argv[1:],shortopts="vhf:s:o:S:", longopts=["verbose","help","inFile","inSep","outFile","outSep"])
     except getopt.GetoptError as err:
         print(err)
         sys.exit()
