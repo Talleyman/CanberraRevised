@@ -8,10 +8,12 @@ try:
     import numpy as np
 except ImportError:
     print "Cannot import numpy. Please install numpy and try again.\n"
+    sys.exit()
 try:
     import mlpy
 except ImportError:
     print "Cannot import mlpy. Please install mlpy and try again.\n"
+    sys.exit()
     
 def Doc():#Function to display the help menu as needed
     print "Canberra Distance help menu:\n\n"
@@ -34,27 +36,30 @@ def GetArgs():#Collects the arguments for the program
     outputsep="comma"
     outFile="Canberra_Results"
     #Loop through command line arguments to get file names and specifications
-    for o, a in ops:
-        if o in ("-v","verbose"):
+    for o in ops:
+        if o[0] in ("-v","verbose"):
             verbose=True
-        elif o in ("-h","help"):
+    for o in ops:
+        if o[0] in ("-h","help"):
             if verbose:
                 print "Loading help menu..."
             Doc()
-        elif o in ("-f","-inFile"):
-            inFile=str(a)
+            sys.exit()
+    for o in ops:
+        if o[0] in ("-f","-inFile"):
+            inFile=str(o[1])
             if verbose:
                 print "Input file to be analyzed is named", inFile
-        elif o in ("-s","-inSep"):
-            inputsep=str(a)
+        if o[0] in ("-s","-inSep"):
+            inputsep=str(o[1])
             if verbose:
                 print "Input delimiter is set to", inputsep
-        elif o in ("-o","-outFile"):
-            outFile=str(a)
+        if o[0] in ("-o","-outFile"):
+            outFile=str(o[1])
             if verbose:
                 print "Output file name is specified as", outFile
-        elif o in ("-S","-outSep"):
-            outputsep=str(a)
+        if o[0] in ("-S","-outSep"):
+            outputsep=str(o[1])
             if verbose:
                 print "Output delimiter is set to", outputsep
 #Verify that the main required variable is actually defined
@@ -63,12 +68,16 @@ def GetArgs():#Collects the arguments for the program
     except NameError:
         print "No input file found! Input file required for analysis."
         Doc()
+        sys.exit()
     return inFile, inputsep, outputsep, outFile, verbose
         
 def GetData(inFile, inputsep): #Reads data from csv file and translates it into a multi-dimensional list
     List1=[]
     with open(inFile,mode='rb') as data:
-        reader=csv.reader(data, delimiter=inputsep)
+        if inputsep=='comma':
+            reader=csv.reader(data, delimiter=',')
+        else:
+            reader=csv.reader(data, delimiter=' ')
         for row in reader:
             seq=map(int, row) #Map, in this case, applies the 'int' operator to every element in the row
             List1.append(seq)
@@ -102,7 +111,7 @@ def main():
     inName,inSep,outSep,outName,verbose=GetArgs()
     data = GetData(inName, inSep)
     inSep, outSep = ChangeDelim(inSep, outSep)
-    with open(outName, outSep) as csvfile:
+    with open(outName, 'wb') as csvfile:
         out=csv.writer(csvfile)
         out.writerow("First List", "Second List","Distance")
         for x, y in pairwise(data):
