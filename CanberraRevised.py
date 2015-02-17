@@ -17,12 +17,12 @@ except ImportError:
     
 def Doc():#Function to display the help menu as needed
     print "Canberra Distance help menu:\n\n"
-    print "Use -v or -verbose to trigger verbose mode.\n"
-    print "Use -h or -help to access this menu.\n"
-    print "Use -f or -inFile to specify the name of the input file (i.e. the file with the ranked lists).\n"
-    print "Use -s or -inSep to set the delimiter on the input file.\n"
-    print "Use -o or -outFile to set the desired name for your output file (e.g. My_Results).\n"
-    print "Use -S or -outSep to set the desired delimiter on your outputfile.\n"
+    print "Use -v or -verbose to trigger verbose mode."
+    print "Use -h or -help to access this menu."
+    print "Use -f or -inFile to specify the name of the input file (i.e. the file with the ranked lists)."
+    print "Use -s or -inSep to set the delimiter on the input file."
+    print "Use -o or -outFile to set the desired name for your output file (e.g. My_Results)."
+    print "Use -S or -outSep to set the desired delimiter on your outputfile."
     
 def GetArgs():#Collects the arguments for the program
     try:
@@ -123,9 +123,3 @@ def main():
         
 if __name__=="__main__":
     main()
-            
-    
-        
-        
-        
-    
