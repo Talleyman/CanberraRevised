@@ -26,7 +26,7 @@ def Doc():#Function to display the help menu as needed
     
 def GetArgs():#Collects the arguments for the program
     try:
-        ops, args = getopt.getopt(sys.argv[1:],shortopts="vhf:s:o:S:", longopts=["verbose","help","inFile","inSep","outFile","outSep"])
+        ops, args = getopt.getopt(sys.argv[1:],"vhf:s:o:S:", ["verbose","help","inFile","inSep","outFile","outSep"])
     except getopt.GetoptError as err:
         print(err)
         sys.exit()
@@ -36,30 +36,30 @@ def GetArgs():#Collects the arguments for the program
     outputsep="comma"
     outFile="Canberra_Results"
     #Loop through command line arguments to get file names and specifications
-    for o in ops:
+    for op, args in ops:
         if o[0] in ("-v","verbose"):
             verbose=True
-    for o in ops:
+    for op in ops:
         if o[0] in ("-h","help"):
             if verbose:
                 print "Loading help menu..."
             Doc()
             sys.exit()
-    for o in ops:
-        if o[0] in ("-f","-inFile"):
-            inFile=str(o[1])
+    for op, arg in ops:
+        if op in ("-f","-inFile"):
+            inFile=arg
             if verbose:
                 print "Input file to be analyzed is named", inFile
-        if o[0] in ("-s","-inSep"):
-            inputsep=str(o[1])
+        if op in ("-s","-inSep"):
+            inputsep=arg
             if verbose:
                 print "Input delimiter is set to", inputsep
-        if o[0] in ("-o","-outFile"):
-            outFile=str(o[1])
+        if op in ("-o","-outFile"):
+            outFile=arg
             if verbose:
                 print "Output file name is specified as", outFile
-        if o[0] in ("-S","-outSep"):
-            outputsep=str(o[1])
+        if op in ("-S","-outSep"):
+            outputsep=arg
             if verbose:
                 print "Output delimiter is set to", outputsep
 #Verify that the main required variable is actually defined
