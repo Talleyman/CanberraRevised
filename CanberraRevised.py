@@ -35,26 +35,26 @@ def GetArgs():#Collects the arguments for the program
     inputsep="comma"
     outFile="Canberra_Results"
     #Loop through command line arguments to get file names and specifications
-    for op, args in ops:
-        if op in ("-v","verbose"):
+    for op in ops:
+        if op[0] in ("-v","-verbose"):
             verbose=True
     for op in ops:
-        if op in ("-h","help"):
+        if op[0] in ("-h","-help"):
             if verbose:
                 print "Loading help menu..."
             Doc()
             sys.exit()
-    for op, arg in ops:
-        if op in ("-f","-inFile"):
-            inFile=arg
+    for op in ops:
+        if op[0] in ("-f","-inFile"):
+            inFile=str(op[1])
             if verbose:
                 print "Input file to be analyzed is named", inFile
-        if op in ("-s","-inSep"):
-            inputsep=arg
+        if op[0] in ("-s","-inSep"):
+            inputsep=str(op[1])
             if verbose:
                 print "Input delimiter is set to", inputsep
-        if op in ("-o","-outFile"):
-            outFile=arg
+        if op[0] in ("-o","-outFile"):
+            outFile=str(op[1])
             if verbose:
                 print "Output file name is specified as", outFile
 #Verify that the main required variable is actually defined
